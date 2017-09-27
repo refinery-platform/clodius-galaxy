@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<tool id="clodius" name="clodius" version="0.0.1">
+    <description>Clodius is a tool for breaking up large data sets into smaller tiles that can subsequently be displayed using an appropriate viewer.</description>
+    <command>
+        clodius aggregate $file_type $input_file
+    </command>
+    <inputs>
+        <param name="input_file" type="data" label="File to be aggregated"/>
+        <param name="file_type" type="text" label="Filetype to be aggregated">
+            <option value="bedpe">Bedpe-like file</option>
+            <option value="bedfile">Gene Annotation File</option>
+            <option value="bedgraph">BedGraph file</option>
+            <option value="bigwig">BigWig File</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="output_file" label="${input_file.name}"/>
+    </outputs>
+    <requirements>
+        <requirement type="package" version="0.6.5">clodius</requirement>
+    </requirements>
+    <tests>
+        <test>
+          <param name="input_file" value="test.bed" />
+          <param name="file_type" value="bedfile" />
+          <output name="output_file" file="test.mulitres.bed" />     
+        </test>
+        <test>
+          <param name="input_file" value="test.txt" />
+          <param name="file_type" value="bedpe" />
+          <output name="output_file" file="test.txt.multires" />     
+        </test>
+        <test>
+          <param name="input_file" value="test.tsv" />
+          <param name="file_type" value="bedgraph" />
+          <output name="output_file" file="test.hitile" />     
+        </test>
+         <test>
+          <param name="input_file" value="test.bw" />
+          <param name="file_type" value="bigwig" />
+          <output name="output_file" file="test.multires.bw" />     
+        </test>
+    </tests>
+    <help>
+<![CDATA[
+**What it does**
+Clodius is a tool for breaking up large data sets into smaller tiles that can subsequently be displayed using an appropriate viewer.
+]]>
+    </help>
+</tool>
