@@ -9,7 +9,27 @@
         <requirement type="package" version="0.6.5">clodius</requirement>
     </requirements>
     <command>
-        clodius aggregate $file_type $input_file
+    <![CDATA[
+        clodius aggregate $file_type $input_file --assembly $assembly
+        #if $file_type == "bedpe":
+            --chr1-col 1
+            --from1-col 2
+            --to1-col 3
+            --chr2-col 1
+            --from2-col 2
+            --to2-col 3
+        #if $file_type == "bedfile":
+            --max-per-tile 20
+            --importance-column 5
+            --delimiter '\t'
+        #if $file_type == "bedgraph":
+            --chromosome-col 2
+            --from-pos-col 3
+            --to-pos-col 4
+            --value-col 5
+            --has-header
+            --nan-value 'NA'
+    ]]>
     </command>
     <inputs>
         <param name="input_file" type="data" label="File to be aggregated"/>
@@ -18,6 +38,9 @@
             <option value="bedfile">Gene Annotation File</option>
             <option value="bedgraph">BedGraph file</option>
             <option value="bigwig">BigWig File</option>
+        </param>
+        <param name="assembly" type="text" label="Genome Assembly">
+            <option value="hg19">Human</option>
         </param>
     </inputs>
     <outputs>
@@ -39,21 +62,25 @@
         <test>
           <param name="input_file" value="test.txt" />
           <param name="file_type" value="bedpe" />
-          <output name="output_file" file="test.txt.multires"/>     
+          <param name="assembly" value="hg19" />
+          <output name="output_file" file="test.txt.multires" />     
         </test>
         <test>
           <param name="input_file" value="test.bed" />
           <param name="file_type" value="bedfile" />
+          <param name="assembly" value="hg19" />
           <output name="output_file" file="test.mulitres.bed" />     
         </test>
         <test>
           <param name="input_file" value="test.tsv" />
           <param name="file_type" value="bedgraph" />
+          <param name="assembly" value="hg19" />
           <output name="output_file" file="test.hitile" />     
         </test>
          <test>
           <param name="input_file" value="test.bw" />
           <param name="file_type" value="bigwig" />
+          <param name="assembly" value="hg19" />
           <output name="output_file" file="test.multires.bw" lines_diff="9"/>     
         </test>
     </tests>
