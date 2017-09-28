@@ -9,7 +9,7 @@
         <requirement type="package" version="0.6.5">clodius</requirement>
     </requirements>
     <command>
-        clodius aggregate $file_type $input_file --output_file $output_file
+        clodius aggregate $file_type $input_file
     </command>
     <inputs>
         <param name="input_file" type="data" label="File to be aggregated"/>
