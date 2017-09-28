@@ -52,22 +52,22 @@
    
     <tests>
         <test>
-          <param name="input_file" value="test.txt" />
+          <param name="input_file" value="Rao_RepA_GM12878_Arrowhead.txt" />
           <param name="file_type" value="bedpe" />
           <param name="assembly" value="hg19" />
-          <output name="output_file" file="test.txt.multires" />     
+          <output name="output_file" file="Rao_RepA_GM12878_Arrowhead.txt.multires" />     
         </test>
         <test>
-          <param name="input_file" value="test.bed" />
+          <param name="input_file" value="geneAnnotationsExonsUnions.hg19.short.bed.txt" />
           <param name="file_type" value="bedfile" />
           <param name="assembly" value="hg19" />
-          <output name="output_file" file="test.mulitres.bed" />     
+          <output name="output_file" file="geneAnnotationsExonsUnions.hg19.short.bed.txt.mulitres.bed" />     
         </test>
         <test>
-          <param name="input_file" value="test.tsv" />
+          <param name="input_file" value="cnvs_hw.tsv" />
           <param name="file_type" value="bedgraph" />
           <param name="assembly" value="hg19" />
-          <output name="output_file" file="test.hitile" />     
+          <output name="output_file" file="cnvs_hw.tsv.hitile" />     
         </test>
          <test>
           <param name="input_file" value="test.bw" />
