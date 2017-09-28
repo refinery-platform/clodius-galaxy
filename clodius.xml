@@ -47,18 +47,7 @@
         </param>
     </inputs>
     <outputs>
-        <data name="output_file">
-            <filter>file_type == "bedpe"</filter>
-        </data>
-        <data name="output_file">
-            <filter>file_type == "bedfile"</filter>
-        </data>
-        <data name="output_file">
-            <filter>file_type == "bedgraph"</filter>
-        </data>
-        <data name="output_file">
-            <filter>file_type == "bigwig"</filter>
-        </data>
+        <data name="output_file" />
     </outputs>
    
     <tests>
