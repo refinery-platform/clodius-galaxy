@@ -25,6 +25,7 @@
             --delimiter '\t'
         #end if
         #if $file_type == "bedgraph":
+            --chromsizes-filename $assembly_file
             --chromosome-col 2
             --from-pos-col 3
             --to-pos-col 4
@@ -35,6 +36,7 @@
     ]]>
     </command>
     <inputs>
+        <param name="assembly_file" type="data" label="Assembly File"/>
         <param name="input_file" type="data" label="File to be aggregated"/>
         <param name="file_type" type="text" label="Filetype to be aggregated">
             <option value="bedpe">Bedpe-like file</option>
@@ -65,6 +67,7 @@
         </test>
         <test>
           <param name="input_file" value="cnvs_hw.tsv" />
+          <param name="assembly_file" value="cnvs_assembly" />
           <param name="file_type" value="bedgraph" />
           <param name="assembly" value="hg19" />
           <output name="output_file" file="cnvs_hw.tsv.hitile" />     
