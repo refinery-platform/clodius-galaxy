@@ -21,27 +21,7 @@
         </param>
     </inputs>
     <outputs>
-        <data auto_format="true" name="output_file" >
-        <actions>
-          <conditional name="file_type">
-             <when value="bedfile">
-              <action type="format" default="multires.bed">
-              </action>
-            </when>
-            <when value="bedpe">
-              <action type="format" default="multires">
-              </action>
-            </when>
-            <when value="bedgraph">
-              <action type="format" default="hitile">
-              </action>
-            </when>
-            <when value="bigwig">
-              <action type="format" default="multires.bw">
-              </action>
-            </when>
-          </conditional>
-        </actions>
+        <data name="${input_file}.multires.${file_type}">
       </data>
     </outputs>
    
