@@ -39,7 +39,7 @@
         <test>
           <param name="input_file" value="test.txt" />
           <param name="file_type" value="bedpe" />
-          <output name="output_file" file="test.txt.multires" />     
+          <output name="output_file" file="test.txt.multires"/>     
         </test>
         <test>
           <param name="input_file" value="test.bed" />
@@ -54,7 +54,7 @@
          <test>
           <param name="input_file" value="test.bw" />
           <param name="file_type" value="bigwig" />
-          <output name="output_file" file="test.multires.bw" />     
+          <output name="output_file" file="test.multires.bw" lines_diff="9"/>     
         </test>
     </tests>
     <help>
