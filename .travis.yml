@@ -4,8 +4,8 @@ cache: pip
 install:
     - pip install -r requirements.txt
 script:
-    - planemo test --conda_auto_init --conda_dependency_resolution --conda_auto_install --conda_ensure_channels scottx611x --no_cache_galaxy --no_cleanup  
-    - cat test_tool_output.html
+    - planemo test --conda_auto_init --conda_dependency_resolution --conda_auto_install --conda_ensure_channels scottx611x --no_cache_galaxy --no_cleanup  --test_output ./test.html
+    - cat ./test.html
 after_success:
     - planemo shed_update --shed_target testtoolshed --shed_email $SHED_EMAIL --shed_password $SHED_PASSWORD
 notifications:
