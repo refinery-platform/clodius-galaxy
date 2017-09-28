@@ -2,6 +2,9 @@
 
 <tool id="clodius" name="clodius" version="0.0.1">
     <description>Clodius is a tool for breaking up large data sets into smaller tiles that can subsequently be displayed using an appropriate viewer.</description>
+     <requirements>
+        <requirement type="package" version="0.6.5">clodius</requirement>
+    </requirements>
     <command>
         clodius aggregate $file_type $input_file
     </command>
@@ -17,16 +20,14 @@
     <outputs>
         <data name="output_file" label="${input_file.name}"/>
     </outputs>
-    <requirements>
-        <requirement type="package" version="0.6.5">clodius</requirement>
-    </requirements>
+   
     <tests>
         <test>
           <param name="input_file" value="test.bed" />
           <param name="file_type" value="bedfile" />
           <output name="output_file" file="test.mulitres.bed" />     
         </test>
-        <test>
+        <!-- <test>
           <param name="input_file" value="test.txt" />
           <param name="file_type" value="bedpe" />
           <output name="output_file" file="test.txt.multires" />     
@@ -40,7 +41,7 @@
           <param name="input_file" value="test.bw" />
           <param name="file_type" value="bigwig" />
           <output name="output_file" file="test.multires.bw" />     
-        </test>
+        </test> -->
     </tests>
     <help>
 <![CDATA[
