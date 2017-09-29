@@ -10,46 +10,7 @@
     </requirements>
     <command>
     <![CDATA[
-        clodius aggregate $file_type $input_file 
-        --assembly $genome_assembly
-
-        #if $delimiter:
-          --delimiter $delimiter
-        #end if
-
-        #if $has_header:
-          --has-header
-        #end if
-
-        #if $output_file:
-          --output-file $output_file
-        #end if 
-
-        #if $file_type == "bedpe":
-            --chr1-col $chromosome_one_column
-            --chr2-col $chromosome_two_column
-            --from1-col $from_one_column
-            --from2-col $from_two_column
-            --to1-col $to_one_column
-            --to2-col $to_two_column
-        #end if
-
-        #if $file_type == "bedfile":
-            --max-per-tile $max_per_tile
-
-            #if $importance_column:
-              --importance-column $importance_column
-            #end if
-
-        #end if
-        #if $file_type == "bedgraph":
-            --chromosome-col $chromosome_column
-            --from-pos-col $from_position_column
-            --to-pos-col $to_position_column
-            --value-col $value_column
-            --nan-value $nan_value
-        #end if
-
+        clodius aggregate $file_type $input_file
     ]]>
     </command>
     <inputs>
@@ -65,18 +26,24 @@
         
         <param 
           name="chromosome_column" 
+          argument="--chromosome-col"
           type="integer" 
-          label="The column number (1-based) which contains the chromosome name."/>
+          label="The column number (1-based) which contains the chromosome name."
+          optional="true"/>
         
         <param 
           name="chromosome_one_column" 
+          argument="--chr1-col"
           type="integer" 
-          label="The column containing the first chromosome."/>
+          label="The column containing the first chromosome."
+          optional="true"/>
         
         <param 
           name="chromosome_two_column" 
+          argument="--chr2-col"
           type="integer" 
-          label="The column containing the second chromosome."/>
+          label="The column containing the second chromosome."
+          optional="true"/>
         
         <!-- <param 
           name="chromsizes_file" 
@@ -96,12 +63,14 @@
           value="true"/> -->
         
         <param 
-          name="delimiter" 
-          type="text"/>
+          name="delimiter"
+          argument="--delimiter"
+          type="text"
+          optional="true"/>
 
         <param 
           name="file_type" 
-          type="text" 
+          type="select" 
           label="Filetype to be aggregated">
             <option value="bedpe">Bedpe-like file</option>
             <option value="bedfile">Gene Annotation File</option>
@@ -111,21 +80,31 @@
 
         <param 
           name="from_one_column" 
+          argument="--from1-col"
           type="integer" 
-          label="The column containing the first start position."/>
+          label="The column containing the first start position."
+          optional="true"/>
 
         <param 
           name="from_two_column" 
+          argument="--from2-col"
           type="integer" 
-          label="The column containing the second start position."/>
+          label="The column containing the second start position."
+          optional="true"/>
         
         <param 
           name="from_position_column" 
+          argument="--from-pos-col"
           type="integer" 
           label="The column number (1-based) which contains the starting position."
           value="2"/>
         
-        <param name="genome_assembly" type="text" label="Genome Assembly" value="hg19">
+        <param 
+          name="genome_assembly" 
+          argument="--assembly"
+          type="select"
+          label="Genome Assembly" 
+          value="hg19">
             <option value="hg19">Human (hg19)</option>
             <option value="grch37">Human (grch37)</option>
             <option value="dm3">D. melanogaster</option>
@@ -133,9 +112,10 @@
         
         <param 
           name="has_header" 
+          argument="--has-header"
           type="boolean" 
           label="Does this file have a header that we should ignore?"
-          value="false"/>
+          optional="true"/>
         
         <param 
           name="input_file" 
@@ -144,18 +124,23 @@
         
         <param 
           name="importance_column" 
+          argument="--importance-column"
           type="integer" 
           label="The column (1-based) containing information about how important that row is. 
           If it's absent, then use the length of the region. 
-          If the value is equal to `random`, then a random value will be used for the importance (effectively leading to random sampling)"/>
+          If the value is equal to `random`, then a random value will be used for the importance (effectively leading to random sampling)"
+          optional="true"/>
         
         <param 
           name="nan_value" 
+          argument="--nan-value"
           type="text" 
-          label="The string to use as a NaN value."/>
+          label="The string to use as a NaN value."
+          optional="true"/>
         
         <param 
           name="max_per_tile" 
+          argument="--max-per-tile"
           type="integer" 
           label="Max per tile."
           value="100"/>
@@ -171,8 +156,10 @@
         
         <param 
           name="output_file" 
+          argument="--output-file"
           type="text" 
-          label="The default output file name to use. If this isn't specified, clodius will replace the current extension with something resonable."/>
+          label="The default output file name to use. If this isn't specified, clodius will replace the current extension with something resonable."
+          optional="true"/>
         
         <!-- <param 
           name="tile_size" 
@@ -183,16 +170,21 @@
         
         <param 
           name="to_one_column" 
+          argument="--to1-col"
           type="integer" 
-          label="The column containing the first end position."/>
+          label="The column containing the first end position."
+          optional="true"/>
         
         <param 
-          name="to_two_column" 
+          name="to_two_column"
+          argument="--to2-col" 
           type="integer" 
-          label="The column containing the second end position."/>
+          label="The column containing the second end position."
+          optional="true"/>
         
         <param 
           name="to_position_column" 
+          argument="--to-pos-col"
           type="integer" 
           label="The column number (1-based) which contains the ending position."
           value="3"/>
@@ -206,6 +198,7 @@
         
         <param 
           name="value_column" 
+          argument="--value-col"
           type="integer" 
           label="The column number (1-based) which contains the actual value position."
           value="4"/>
@@ -222,7 +215,7 @@
     <tests>
         <!-- BEDPE TEST -->
         <test>
-          <param name="input_file" value="Rao_RepA_GM12878_Arrowhead.txt" />
+          <param name="input_file" value="Rao_RepA_GM12878_Arrowhead.txt"/>
           <param name="file_type" value="bedpe" />
           <param name="chromosome_one_column" value="1" />
           <param name="chromosome_two_column" value="1" />
