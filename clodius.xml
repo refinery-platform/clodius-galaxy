@@ -12,31 +12,33 @@
     <![CDATA[
         clodius aggregate $file_type $input_file
 
+        --assembly $genome_assembly
+
         #if $file_type == "bedpe":
-            --chr1-col $chromosome_one_column
-            --chr2-col $chromosome_two_column
-            --from1-col $from_one_column
-            --from2-col $from_two_column
-            --to1-col $to_one_column
-            --to2-col $to_two_column
+          --chr1-col $chromosome_one_column
+          --chr2-col $chromosome_two_column
+          --from1-col $from_one_column
+          --from2-col $from_two_column
+          --to1-col $to_one_column
+          --to2-col $to_two_column
         #end if
 
         #if $file_type == "bedfile":
-            --delimiter $delimiter
-            --max-per-tile $max_per_tile
-            --importance-column $importance_column
+          --delimiter $delimiter
+          --max-per-tile $max_per_tile
+          --importance-column $importance_column
         #end if
 
         #if $file_type == "bedgraph":
-            #if $has_header == "true":
-              --has-header
-            #end if
-            
-            --chromosome-col $chromosome_column
-            --from-pos-col $from_position_column
-            --to-pos-col $to_position_column
-            --value-col $value_column
-            --nan-value $nan_value
+          #if $has_header == "true":
+            --has-header
+          #end if
+
+          --chromosome-col $chromosome_column
+          --from-pos-col $from_position_column
+          --to-pos-col $to_position_column
+          --value-col $value_column
+          --nan-value $nan_value
         #end if
     ]]>
     </command>
