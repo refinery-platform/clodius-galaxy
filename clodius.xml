@@ -10,72 +10,260 @@
     </requirements>
     <command>
     <![CDATA[
-        clodius aggregate $file_type $input_file --assembly $assembly
-        #if $file_type == "bedpe":
-            --chr1-col 1
-            --from1-col 2
-            --to1-col 3
-            --chr2-col 1
-            --from2-col 2
-            --to2-col 3
+        clodius aggregate $file_type $input_file 
+        --assembly $genome_assembly
+        --chunk-size $chunk_size
+        --max-per-tile $max_per_tile
+
+        #if $delimiter:
+          --delimiter $delimiter
         #end if
+
+        #if $has_header:
+          --has-header
+        #end if
+
+        #if $output_file:
+          --output-file $output_file
+        #end if 
+
+        #if $file_type == "bedpe":
+            --chr1-col $chromosome_one_column
+            --chr2-col $chromosome_two_column
+            --from1-col $from_one_column
+            --from2-col $from_two_column
+            --to1-col $to_one_column
+            --to2-col $to_two_column
+        #end if
+
         #if $file_type == "bedfile":
-            --max-per-tile 20
-            --importance-column 5
-            --delimiter '\t'
+            --max-per-tile $max_per_tile
+
+            #if $importance_column:
+              --importance-column $importance_column
+            #end if
+
         #end if
         #if $file_type == "bedgraph":
-            --chromsizes-filename $assembly_file
-            --chromosome-col 2
-            --from-pos-col 3
-            --to-pos-col 4
-            --value-col 5
-            --has-header
-            --nan-value 'NA'
+            --chromosome-col $chromosome_column
+            --from-pos-col $from_position_column
+            --to-pos-col $to_position_column
+            --value-col $value_column
+            --nan-value $nan_value
         #end if
+
     ]]>
     </command>
     <inputs>
-        <param name="assembly_file" type="data" label="Assembly File"/>
-        <param name="input_file" type="data" label="File to be aggregated"/>
-        <param name="file_type" type="text" label="Filetype to be aggregated">
+        <param 
+          name="assembly_file" 
+          type="data" 
+          label="The genome assembly that the input file was created against."
+          value="hg19"/>
+        
+        <!-- <param 
+          name="chromosome" 
+          type="text" 
+          label="Only extract values for a particular chromosome. Use all chromosomes if not set."/> -->
+        
+        <!-- <param 
+          name="chromosome_column" 
+          type="integer" 
+          label="The column number (1-based) which contains the chromosome name."/> -->
+        
+        <param 
+          name="chromosome_one_column" 
+          type="integer" 
+          label="The column containing the first chromosome."/>
+        
+        <param 
+          name="chromosome_two_column" 
+          type="integer" 
+          label="The column containing the second chromosome."/>
+        
+        <!-- <param 
+          name="chromsizes_file" 
+          type="data" 
+          label="A file containing chromosome sizes and order."/> -->
+        
+        <!-- <param 
+          name="chunk_size" 
+          type="integer" 
+          label="How many values to aggregate at once. Specified as a power of two multiplier of the tile size."
+          value="14"/> -->
+        
+        <!-- <param 
+          name="count_nan" 
+          type="boolean" 
+          label="Simply count the number of nan values in the file"
+          value="true"/> -->
+        
+        <param 
+          name="delimiter" 
+          type="text"/>
+
+        <param 
+          name="file_type" 
+          type="text" 
+          label="Filetype to be aggregated">
             <option value="bedpe">Bedpe-like file</option>
             <option value="bedfile">Gene Annotation File</option>
             <option value="bedgraph">BedGraph file</option>
             <option value="bigwig">BigWig File</option>
         </param>
-        <param name="assembly" type="text" label="Genome Assembly">
-            <option value="hg19">Human</option>
+
+        <param 
+          name="from_one_column" 
+          type="integer" 
+          label="The column containing the first start position."/>
+
+        <param 
+          name="from_two_column" 
+          type="integer" 
+          label="The column containing the second start position."/>
+        
+        <param 
+          name="from_position_column" 
+          type="integer" 
+          label="The column number (1-based) which contains the starting position."
+          value="2"/>
+        
+        <param name="genome_assembly" type="text" label="Genome Assembly" value="hg19">
+            <option value="hg19">Human (hg19)</option>
+            <option value="grch37">Human (grch37)</option>
+            <option value="dm3">D. melanogaster</option>
         </param>
+        
+        <param 
+          name="has_header" 
+          type="boolean" 
+          label="Does this file have a header that we should ignore?"
+          value="false"/>
+        
+        <param 
+          name="input_file" 
+          type="data" 
+          label="File to be aggregated"/>
+        
+        <param 
+          name="importance_column" 
+          type="integer" 
+          label="The column (1-based) containing information about how important that row is. 
+          If it's absent, then use the length of the region. 
+          If the value is equal to `random`, then a random value will be used for the importance (effectively leading to random sampling)"/>
+        
+        <param 
+          name="nan_value" 
+          type="text" 
+          label="The string to use as a NaN value."/>
+        
+        <param 
+          name="max_per_tile" 
+          type="integer" 
+          label="Max per tile."
+          value="100"/>
+        
+        <!-- <param 
+          name="method" 
+          type="text" 
+          label="The method used to aggregate values (e.g. sum, average...)"
+          value="sum">
+           <option value="average">Average</option>
+           <option value="sum">Sum</option>
+        </param> -->
+        
+        <param 
+          name="output_file" 
+          type="text" 
+          label="The default output file name to use. If this isn't specified, clodius will replace the current extension with something resonable."/>
+        
+        <!-- <param 
+          name="tile_size" 
+          type="integer" 
+          label="The number of data points in each tile. Used to determine the number of zoom levels to create."
+          value="1024"
+        /> -->
+        
+        <param 
+          name="to_one_column" 
+          type="integer" 
+          label="The column containing the first end position."/>
+        
+        <param 
+          name="to_two_column" 
+          type="integer" 
+          label="The column containing the second end position."/>
+        
+        <param 
+          name="to_position_column" 
+          type="integer" 
+          label="The column number (1-based) which contains the ending position."
+          value="3"/>
+        
+        <!-- <param 
+          name="transform" 
+          type="integer" 
+          label="The method used to aggregate values (e.g. none, exp2...)">
+           <option value="exp2">Exp2</option>
+        </param> -->
+        
+        <param 
+          name="value_column" 
+          type="integer" 
+          label="The column number (1-based) which contains the actual value position."
+          value="4"/>
+        
+        <!-- <param 
+          name="zoom_step" 
+          type="integer" 
+          label="The number of intermediate aggregation levels to omit."
+          value="8"/> -->
     </inputs>
     <outputs>
         <data name="output_file" />
     </outputs>
-   
     <tests>
+        <!-- BEDPE TEST -->
         <test>
           <param name="input_file" value="Rao_RepA_GM12878_Arrowhead.txt" />
           <param name="file_type" value="bedpe" />
-          <param name="assembly" value="hg19" />
+          <param name="chromosome_one_column" value="1" />
+          <param name="chromosome_two_column" value="1" />
+          <param name="from_one_column" value="2" />
+          <param name="from_two_column" value="2" />
+          <param name="to_one_column" value="3" />
+          <param name="to_two_column" value="3" />
           <output name="output_file" file="Rao_RepA_GM12878_Arrowhead.txt.multires" />     
         </test>
+
+        <!-- BEDFILE TEST -->
         <test>
-          <param name="input_file" value="geneAnnotationsExonsUnions.hg19.short.bed.txt" />
+          <param name="input_file" value="geneAnnotationsExonsUnions.hg19.short.bed" />
           <param name="file_type" value="bedfile" />
-          <param name="assembly" value="hg19" />
-          <output name="output_file" file="geneAnnotationsExonsUnions.hg19.short.bed.txt.mulitres.bed" />     
+          <param name="importance_column" value="5" />
+          <param name="max_per_tile" value="20" />
+          <param name="delimiter" value="\t" />
+          <output name="output_file" file="geneAnnotationsExonsUnions.hg19.short.bed.mulitres.bed" />     
         </test>
+
+        <!-- BEDGRAPH TEST -->
         <test>
           <param name="input_file" value="cnvs_hw.tsv" />
-          <param name="assembly_file" value="cnvs_assembly" />
           <param name="file_type" value="bedgraph" />
-          <param name="assembly" value="hg19" />
+          <param name="assembly" value="grch37" />
+          <param name="chromosome_column" value="2" />
+          <param name="from_position_column" value="3" />
+          <param name="to_position_column" value="4" />
+          <param name="value_column" value="5" />
+          <param name="has_header" value="true" />
+          <param name="nan_value" value="NA" />
           <output name="output_file" file="cnvs_hw.tsv.hitile" />     
         </test>
-         <test>
+
+        <!-- BIGWIG TEST -->
+        <test>
           <param name="input_file" value="test.bw" />
           <param name="file_type" value="bigwig" />
-          <param name="assembly" value="hg19" />
           <output name="output_file" file="test.multires.bw" lines_diff="9"/>     
         </test>
     </tests>
