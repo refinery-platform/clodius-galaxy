@@ -11,8 +11,7 @@
     <command>
     <![CDATA[
         clodius aggregate $file_type $input_file
-
-        --assembly $genome_assembly
+          --assembly $genome_assembly
 
         #if $file_type == "bedpe":
           --chr1-col $chromosome_one_column
@@ -246,7 +245,6 @@
         <test>
           <param name="input_file" value="Rao_RepA_GM12878_Arrowhead.txt"/>
           <param name="file_type" value="bedpe" />
-          <param name="genome_assembly" value="hg19" />
           <param name="chromosome_one_column" value="1" />
           <param name="chromosome_two_column" value="1" />
           <param name="from_one_column" value="2" />
@@ -259,7 +257,6 @@
         <!-- BEDFILE TEST -->
         <test>
           <param name="input_file" value="geneAnnotationsExonsUnions.hg19.short.bed" />
-          <param name="genome_assembly" value="hg19" />
           <param name="file_type" value="bedfile" />
           <param name="importance_column" value="5" />
           <param name="max_per_tile" value="20" />
@@ -285,7 +282,6 @@
         <test>
           <param name="input_file" value="test.bw" />
           <param name="file_type" value="bigwig" />
-          <param name="genome_assembly" value="hg19" />
           <output name="output_file" file="test.multires.bw" lines_diff="9"/>     
         </test>
     </tests>
