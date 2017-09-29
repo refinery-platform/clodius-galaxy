@@ -53,21 +53,20 @@
     ]]>
     </command>
     <inputs>
-        <param 
+        <!-- <param 
           name="assembly_file" 
           type="data" 
-          label="The genome assembly that the input file was created against."
-          value="hg19"/>
+          label="The genome assembly that the input file was created against."/> -->
         
         <!-- <param 
           name="chromosome" 
           type="text" 
           label="Only extract values for a particular chromosome. Use all chromosomes if not set."/> -->
         
-        <!-- <param 
+        <param 
           name="chromosome_column" 
           type="integer" 
-          label="The column number (1-based) which contains the chromosome name."/> -->
+          label="The column number (1-based) which contains the chromosome name."/>
         
         <param 
           name="chromosome_one_column" 
