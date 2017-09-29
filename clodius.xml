@@ -10,22 +10,29 @@
     </requirements>
     <command>
     <![CDATA[
-        #set bed_filetype = "bedfile"
-        #set bedpe_filetype = "bedpe"
-        #set bedgraph_filetype = "bedgraph"
-        #set bigwig_filetype = "bigwig"
+        clodius aggregate $file_type $input_file
 
-        #if $input_file.is_of_type("bed"):
-          #set file_type = $bed_filetype
-        #elif $input_file.is_of_type("bigwig"):
-          #set file_type = $bigwig_filetype
-        #elif $input_file.is_of_type("tsv"):
-          #set file_type = $bedgraph_filetype
-        #elif $input_file.is_of_type("txt"):
-          #set file_type = $bedpe_filetype
+        #if $file_type == "bedpe":
+            --chr1-col $chromosome_one_column
+            --chr2-col $chromosome_two_column
+            --from1-col $from_one_column
+            --from2-col $from_two_column
+            --to1-col $to_one_column
+            --to2-col $to_two_column
+        #end if
+        
+        #if $file_type == "bedfile":
+            --max-per-tile $max_per_tile
+            --importance-column $importance_column
         #end if
 
-        clodius aggregate $file_type $input_file
+        #if $file_type == "bedgraph":
+            --chromosome-col $chromosome_column
+            --from-pos-col $from_position_column
+            --to-pos-col $to_position_column
+            --value-col $value_column
+            --nan-value $nan_value
+        #end if
     ]]>
     </command>
     <inputs>
@@ -82,6 +89,16 @@
           argument="--delimiter"
           type="text"
           optional="true"/>
+
+        <param 
+          name="file_type" 
+          type="select" 
+          label="Filetype to be aggregated">
+            <option value="bedpe">Bedpe-like file</option>
+            <option value="bedfile">Gene Annotation File</option>
+            <option value="bedgraph">BedGraph file</option>
+            <option value="bigwig">BigWig File</option>
+        </param>
 
         <param 
           name="from_one_column" 
@@ -221,6 +238,7 @@
         <!-- BEDPE TEST -->
         <test>
           <param name="input_file" value="Rao_RepA_GM12878_Arrowhead.txt"/>
+          <param name="file_type" value="bedpe" />
           <param name="chromosome_one_column" value="1" />
           <param name="chromosome_two_column" value="1" />
           <param name="from_one_column" value="2" />
@@ -233,6 +251,7 @@
         <!-- BEDFILE TEST -->
         <test>
           <param name="input_file" value="geneAnnotationsExonsUnions.hg19.short.bed" />
+          <param name="file_type" value="bedfile" />
           <param name="importance_column" value="5" />
           <param name="max_per_tile" value="20" />
           <param name="delimiter" value="\t" />
@@ -242,6 +261,7 @@
         <!-- BEDGRAPH TEST -->
         <test>
           <param name="input_file" value="cnvs_hw.tsv" />
+          <param name="file_type" value="bedgraph" />
           <param name="assembly" value="grch37" />
           <param name="chromosome_column" value="2" />
           <param name="from_position_column" value="3" />
@@ -255,6 +275,7 @@
         <!-- BIGWIG TEST -->
         <test>
           <param name="input_file" value="test.bw" />
+          <param name="file_type" value="bigwig" />
           <output name="output_file" file="test.multires.bw" lines_diff="9"/>     
         </test>
     </tests>
