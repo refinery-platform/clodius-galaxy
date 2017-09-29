@@ -20,13 +20,18 @@
             --to1-col $to_one_column
             --to2-col $to_two_column
         #end if
-        
+
         #if $file_type == "bedfile":
+            --delimiter $delimiter
             --max-per-tile $max_per_tile
             --importance-column $importance_column
         #end if
 
         #if $file_type == "bedgraph":
+            #if $has_header == "true":
+              --has-header
+            #end if
+            
             --chromosome-col $chromosome_column
             --from-pos-col $from_position_column
             --to-pos-col $to_position_column
@@ -262,7 +267,7 @@
         <test>
           <param name="input_file" value="cnvs_hw.tsv" />
           <param name="file_type" value="bedgraph" />
-          <param name="assembly" value="grch37" />
+          <param name="genome_assembly" value="grch37" />
           <param name="chromosome_column" value="2" />
           <param name="from_position_column" value="3" />
           <param name="to_position_column" value="4" />
