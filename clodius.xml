@@ -12,8 +12,6 @@
     <![CDATA[
         clodius aggregate $file_type $input_file 
         --assembly $genome_assembly
-        --chunk-size $chunk_size
-        --max-per-tile $max_per_tile
 
         #if $delimiter:
           --delimiter $delimiter
