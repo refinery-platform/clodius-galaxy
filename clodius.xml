@@ -12,7 +12,7 @@
     <![CDATA[
         #set delimiter_map = {"tab": "\t"}
 
-        clodius aggregate $file_type $input_file --assembly $genome_assembly --output-file $output_file
+        clodius aggregate $file_type $input_file --assembly $genome_assembly --output-file $output_filename
 
         #if $file_type == "bedpe":
             --chr1-col $chromosome_one_column
@@ -147,7 +147,7 @@
           <param name="from_two_column" value="2" />
           <param name="to_one_column" value="3" />
           <param name="to_two_column" value="3" />
-          <param name="output_file" value="bedpe_test.multires" />
+          <param name="output_filename" value="bedpe_test.multires" />
           <output name="output_file" file="Rao_RepA_GM12878_Arrowhead.txt.multires" />     
         </test>
         <!--
@@ -174,7 +174,7 @@
         <test expect_num_outputs="1" expect_exit_code="0">
           <param name="input_file" value="test.bw" />
           <param name="file_type" value="bigwig" />
-          <param name="output_file" value="bigwig_test.multires" />
+          <param name="output_filename" value="bigwig_test.multires" />
           <output name="output_file" file="test.multires.bw" lines_diff="9"/>     
         </test>
     </tests>
