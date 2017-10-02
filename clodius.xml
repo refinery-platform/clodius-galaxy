@@ -13,7 +13,7 @@
         #set delimiter_map = {"tab": "\t"}
         clodius aggregate $file_type $input_file --assembly $genome_assembly
 
-        #if $output_filename
+        #if $output_filename:
           --output-file $output_filename
         #end if
 
@@ -30,33 +30,33 @@
         #if $file_type == "bedfile":
           --max-per-tile $max_per_tile
           --importance-column $importance_column
-          #if $delimiter
+          #if $delimiter:
             --delimiter '$delimiter_map[$delimiter]'
           #end if
         #end if
-        
+
         #if $file_type == "bedgraph":
-            #if $chromosome_column
+            #if $chromosome_column:
               --chromosome-col $chromosome_column
             #end if
             
-            #if $from_position_column
+            #if $from_position_column:
               --from-pos-col $from_position_column
             #end if
             
-            #if $to_position_column
+            #if $to_position_column:
               --to-pos-col $to_position_column
             #end if
 
-            #if $value_column
+            #if $value_column:
               --value-col $value_column
             #end if
 
-            #if $has_header
+            #if $has_header:
               --has-header
             #end if
 
-            #if $nan_value
+            #if $nan_value:
               --nan-value $nan_value
             #end if
         #end if
