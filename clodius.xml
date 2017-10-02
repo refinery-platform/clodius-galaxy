@@ -199,7 +199,6 @@
           <param name="has_header" value="true" />
           <param name="nan_value" value="NA" />
           <param name="output_filename" value="bedgraph_test.out" />
-          <output name="output_file" file="cnvs_hw.tsv.hitile" />     
         </test>
         <test expect_num_outputs="1" expect_exit_code="0">
           <param name="input_file" value="test.bw" />
