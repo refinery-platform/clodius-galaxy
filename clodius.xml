@@ -11,13 +11,17 @@
     <command>
     <![CDATA[
         #set delimiter_map = {"tab": "\t"}
-
         clodius aggregate $file_type $input_file --assembly $genome_assembly
+
+        #if $output_filename
+          --output-file $output_filename
+        #end if
 
         #if $file_type == "bedpe":
             --chr1-col $chromosome_one_column
             --from1-col $from_one_column
             --to1-col $to_one_column
+
             --chr2-col $chromosome_two_column
             --from2-col $from_two_column
             --to2-col $to_two_column
@@ -106,12 +110,12 @@
           name="nan_value" 
           type="text" 
           label="The string to use as a NaN value."
-          optional="true"/>
+          optional="true"/> -->
         <param 
-          name="output_file" 
+          name="output_filename" 
           type="text" 
           label="The default output file name to use. If this isn't specified, clodius will replace the current extension with something resonable."
-          optional="true"/> -->
+          optional="true"/>
         <param 
           name="to_one_column" 
           type="integer" 
@@ -146,6 +150,7 @@
           <param name="from_two_column" value="2" />
           <param name="to_one_column" value="3" />
           <param name="to_two_column" value="3" />
+          <param name="output_filename" value="bedpe_test.out" />
           <output name="output_file" file="Rao_RepA_GM12878_Arrowhead.txt.multires" />     
         </test>
         <!--
@@ -172,6 +177,7 @@
         <test expect_num_outputs="1" expect_exit_code="0">
           <param name="input_file" value="test.bw" />
           <param name="file_type" value="bigwig" />
+          <param name="output_filename" value="bigwig_test.out" />
           <output name="output_file" file="test.multires.bw" lines_diff="9"/>     
         </test>
     </tests>
