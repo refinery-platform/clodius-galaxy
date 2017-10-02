@@ -12,7 +12,7 @@
     <![CDATA[
         clodius aggregate $file_type $input_file --assembly $genome_assembly
         #if $file_type == "bedfile":
-          #if $delimeter == "tab"
+          #if $delimiter == "tab"
             --delimiter '/t'
           #end if
           --max-per-tile $max_per_tile
