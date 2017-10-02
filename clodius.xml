@@ -12,11 +12,11 @@
     <![CDATA[
         clodius aggregate $file_type $input_file --assembly $genome_assembly
         #if $file_type == "bedfile":
-          #if $delimiter == "tab"
-            --delimiter '/t'
-          #end if
           --max-per-tile $max_per_tile
           --importance-column $importance_column
+          #if $delimiter == "tab"
+            --delimiter '\t'
+          #end if
         #end if
     ]]>
     </command>
@@ -137,13 +137,12 @@
           <output name="output_file" file="Rao_RepA_GM12878_Arrowhead.txt.multires" />     
         </test> -->
         <test expect_num_outputs="1" expect_exit_code="0">
-          <param name="input_file" value="geneAnnotationsExonsUnions.hg19.short.bed" />
+          <param name="input_file" value="geneAnnotationsExonsUnions.short.bed" />
           <param name="file_type" value="bedfile" />
           <param name="importance_column" value="5" />
           <param name="max_per_tile" value="20" />
-          <!-- &#009; is XML escape code for tab -->
           <param name="delimiter" value="tab" />
-          <output name="output_file" file="geneAnnotationsExonsUnions.hg19.short.bed.mulitres.bed" />     
+          <output name="output_file" file="geneAnnotationsExonsUnions.short.mulitres.bed" />     
         </test>
        <!--  <test>
           <param name="input_file" value="cnvs_hw.tsv" />
