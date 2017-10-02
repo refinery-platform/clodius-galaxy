@@ -109,7 +109,7 @@
           label="The string to use as a NaN value."
           optional="true"/> -->
         <param 
-          name="output_file" 
+          name="output_filename" 
           type="text" 
           label="The default output file name to use. If this isn't specified, clodius will replace the current extension with something resonable."
           optional="true"/>
