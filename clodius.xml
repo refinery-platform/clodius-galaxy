@@ -139,7 +139,7 @@
           <param name="file_type" value="bedfile" />
           <param name="importance_column" value="5" />
           <param name="max_per_tile" value="20" />
-          <param name="delimiter" value="\\t" />
+          <param name="delimiter" value='\t' />
           <output name="output_file" file="geneAnnotationsExonsUnions.hg19.short.bed.mulitres.bed" />     
         </test>
        <!--  <test>
