@@ -10,12 +10,25 @@
     </requirements>
     <command>
     <![CDATA[
+        #set delimiter_map = {"tab": "\t"}
+
         clodius aggregate $file_type $input_file --assembly $genome_assembly
+
+        #if $file_type == "bedpe":
+            --chr1-col $chromosome_one_column
+            --from1-col $from_one_column
+            --to1-col $to_one_column
+            
+            --chr2-col $chromosome_two_column
+            --from2-col $from_two_column
+            --to2-col $to_two_column
+        #end if
+
         #if $file_type == "bedfile":
           --max-per-tile $max_per_tile
           --importance-column $importance_column
-          #if $delimiter == "tab"
-            --delimiter '\t'
+          #if $delimiter
+            --delimiter '$delimiter_map[$delimiter]'
           #end if
         #end if
     ]]>
@@ -25,7 +38,7 @@
           name="chromosome_column" 
           type="integer" 
           label="The column number (1-based) which contains the chromosome name."
-          optional="true"/>
+          optional="true"/>  -->
         <param 
           name="chromosome_one_column" 
           type="integer" 
@@ -35,7 +48,7 @@
           name="chromosome_two_column" 
           type="integer" 
           label="The column containing the second chromosome."
-          optional="true"/> -->
+          optional="true"/>
         <param 
           name="delimiter"
           type="text"
@@ -49,7 +62,7 @@
             <option value="bedgraph">BedGraph file</option>
             <option value="bigwig">BigWig File</option>
         </param>
-        <!-- <param 
+        <param 
           name="from_one_column" 
           type="integer" 
           label="The column containing the first start position."
@@ -59,7 +72,7 @@
           type="integer" 
           label="The column containing the second start position."
           optional="true"/>
-        <param 
+        <!-- <param 
           name="from_position_column" 
           type="integer" 
           label="The column number (1-based) which contains the starting position."
@@ -99,7 +112,7 @@
           name="output_file" 
           type="text" 
           label="The default output file name to use. If this isn't specified, clodius will replace the current extension with something resonable."
-          optional="true"/>
+          optional="true"/> -->
         <param 
           name="to_one_column" 
           type="integer" 
@@ -110,7 +123,7 @@
           type="integer" 
           label="The column containing the second end position."
           optional="true"/>
-        <param 
+        <!-- <param 
           name="to_position_column" 
           type="integer" 
           label="The column number (1-based) which contains the ending position."
@@ -125,7 +138,7 @@
         <data name="output_file" />
     </outputs>
     <tests>
-       <!--  <test>
+       <test expect_num_outputs="1" expect_exit_code="0">
           <param name="input_file" value="Rao_RepA_GM12878_Arrowhead.txt"/>
           <param name="file_type" value="bedpe" />
           <param name="chromosome_one_column" value="1" />
@@ -135,7 +148,8 @@
           <param name="to_one_column" value="3" />
           <param name="to_two_column" value="3" />
           <output name="output_file" file="Rao_RepA_GM12878_Arrowhead.txt.multires" />     
-        </test> -->
+        </test>
+        <!--
         <test expect_num_outputs="1" expect_exit_code="0">
           <param name="input_file" value="geneAnnotationsExonsUnions.short.bed" />
           <param name="file_type" value="bedfile" />
@@ -144,7 +158,7 @@
           <param name="delimiter" value="tab" />
           <output name="output_file" file="geneAnnotationsExonsUnions.short.mulitres.bed" />     
         </test>
-       <!--  <test>
+       <test>
           <param name="input_file" value="cnvs_hw.tsv" />
           <param name="file_type" value="bedgraph" />
           <param name="genome_assembly" value="grch37" />
