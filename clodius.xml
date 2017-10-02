@@ -12,7 +12,7 @@
     <![CDATA[
         clodius aggregate $file_type $input_file --assembly $genome_assembly
         #if $file_type == "bedfile":
-          --delimiter $delimiter
+          --delimiter \$delimiter
           --max-per-tile $max_per_tile
           --importance-column $importance_column
         #end if
@@ -140,7 +140,7 @@
           <param name="importance_column" value="5" />
           <param name="max_per_tile" value="20" />
           <!-- &#009; is XML escape code for tab -->
-          <param name="delimiter" value="&#009;" />
+          <param name="delimiter" value='\t' />
           <output name="output_file" file="geneAnnotationsExonsUnions.hg19.short.bed.mulitres.bed" />     
         </test>
        <!--  <test>
