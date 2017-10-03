@@ -20,7 +20,6 @@
             --chr1-col $chromosome_one_column
             --from1-col $from_one_column
             --to1-col $to_one_column
-
             --chr2-col $chromosome_two_column
             --from2-col $from_two_column
             --to2-col $to_two_column
