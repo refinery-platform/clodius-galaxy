@@ -10,7 +10,8 @@
     </requirements>
     <command>
     <![CDATA[
-        #set delimiter_map = {'tab': '\t'}
+        #set tab_char = '\t'
+        #set delimiter_map = {'tab': \$tab_char}
 
         clodius aggregate $file_type $input_file --assembly $genome_assembly
 
