@@ -10,7 +10,6 @@
     </requirements>
     <command>
     <![CDATA[
-        #set delimiter_map = {"tab": "\t"}
         clodius aggregate $file_type $input_file --assembly $genome_assembly
 
         #if $output_filename:
@@ -21,7 +20,6 @@
             --chr1-col $chromosome_one_column
             --from1-col $from_one_column
             --to1-col $to_one_column
-
             --chr2-col $chromosome_two_column
             --from2-col $from_two_column
             --to2-col $to_two_column
@@ -30,8 +28,8 @@
         #if $file_type == "bedfile":
           --max-per-tile $max_per_tile
           --importance-column $importance_column
-          #if $delimiter:
-            --delimiter '$delimiter_map[$delimiter]'
+          #if $delimiter == "tab":
+            --delimiter '\t'
           #end if
         #end if
 
@@ -111,7 +109,7 @@
           type="text"
           label="Genome Assembly"
           value="hg19"/>
-          <param 
+        <param 
           name="has_header" 
           type="boolean" 
           label="Does this file have a header that we should ignore?"
@@ -179,15 +177,13 @@
           <param name="output_filename" value="bedpe_test.out" />
           <output name="output_file" file="Rao_RepA_GM12878_Arrowhead.txt.multires" />     
         </test>
-        <!--
         <test expect_num_outputs="1" expect_exit_code="0">
           <param name="input_file" value="geneAnnotationsExonsUnions.short.bed" />
           <param name="file_type" value="bedfile" />
           <param name="importance_column" value="5" />
           <param name="max_per_tile" value="20" />
-          <param name="delimiter" value="tab" />
-          <output name="output_file" file="geneAnnotationsExonsUnions.short.mulitres.bed" />     
-        </test> -->
+          <param name="output_filename" value="bedfile_test.out" />
+        </test> 
         <test expect_num_outputs="1" expect_exit_code="0">
           <param name="input_file" value="cnvs_hw.tsv" />
           <param name="file_type" value="bedgraph" />
