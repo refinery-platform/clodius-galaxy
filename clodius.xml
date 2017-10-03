@@ -32,7 +32,7 @@
           --max-per-tile $max_per_tile
           --importance-column $importance_column
           #if $delimiter:
-            --delimiter $delimiter_map.$delimiter
+            --delimiter \$delimiter_map[$delimiter]
           #end if
         #end if
 
