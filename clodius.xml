@@ -10,9 +10,6 @@
     </requirements>
     <command>
     <![CDATA[
-        #set tab_char = '\t'
-        #set delimiter_map = {'tab': \$tab_char}
-
         clodius aggregate $file_type $input_file --assembly $genome_assembly
 
         #if $output_filename:
@@ -32,8 +29,8 @@
         #if $file_type == "bedfile":
           --max-per-tile $max_per_tile
           --importance-column $importance_column
-          #if $delimiter:
-            --delimiter \$delimiter_map[$delimiter]
+          #if $delimiter == "tab":
+            --delimiter '\t'
           #end if
         #end if
 
