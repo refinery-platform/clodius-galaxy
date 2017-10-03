@@ -3,6 +3,10 @@ owner: scottx611x
 description: Clodius is a tool for breaking up large data sets into smaller tiles that can subsequently be displayed using an appropriate viewer.
 homepage_url: https://github.com/scottx611x/clodius-galaxy
 remote_repository_url: https://github.com/scottx611x/clodius-galaxy
+long_description: |
+    Clodius is a tool for breaking up large data sets into smaller tiles that can subsequently be displayed using an appropriate viewer.
+    Input: Aggregatable file ["bed", "bigwig", "bedpe", "bedgraph"]
+    Outputs: an aggregated multi-resolution version of the input file
 type: unrestricted 
 categories:
     - Convert Formats 
